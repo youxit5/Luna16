@@ -11,7 +11,7 @@ candidates = pd.read_csv(RESOURCES_PATH + '/candidates.csv')
 
 def _get_positive_series():
     paths = glob(RESOURCES_PATH + '/*/' + "*.mhd")
-    file_list = [f.split('/')[-1][:-4] for f in paths]
+    file_list = [f.replace("\\","/").split('/')[-1][:-4] for f in paths]
     series = annotations['seriesuid'].tolist()
     infected = [f for f in file_list if f in series]
     return infected
@@ -19,7 +19,7 @@ def _get_positive_series():
 
 def _get_negative_series():
     paths = glob(RESOURCES_PATH + '/*/' + "*.mhd")
-    file_list = [f.split('/')[-1][:-4] for f in paths]
+    file_list = [f.replace("\\","/").split('/')[-1][:-4] for f in paths]
     series = annotations['seriesuid'].tolist()
     cleans = [f for f in file_list if f not in series]
     return cleans
@@ -37,7 +37,9 @@ def save_preprocessed_data():
         ct.preprocess()
         ct.save_preprocessed_image()
         diction = ct.get_info_dict()
-        meta_data = meta_data.append(pd.Series(diction), ignore_index=True)
+        new_row = pd.DataFrame([diction])
+        meta_data = pd.concat([meta_data, new_row], ignore_index=True)
+        # meta_data = meta_data.concat(pd.Series(diction), ignore_index=True)
     for series_id in _get_negative_series():
         nodule_coords_candid = candidates[candidates['seriesuid'] == series_id]
         tp_co = [(a['coordZ'], a['coordY'], a['coordX']) for a in nodule_coords_candid.iloc]
@@ -49,7 +51,8 @@ def save_preprocessed_data():
         ct.preprocess()
         ct.save_preprocessed_image()
         diction = ct.get_info_dict()
-        meta_data = meta_data.append(pd.Series(diction), ignore_index=True)
+        new_row = pd.DataFrame([diction])
+        meta_data = pd.concat([meta_data, new_row], ignore_index=True)
     meta_data.to_csv(f'{OUTPUT_PATH}/preprocessed_meta.csv')
 
 

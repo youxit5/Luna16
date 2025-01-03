@@ -1,12 +1,12 @@
 # some directory for output the results:
-OUTPUT_PATH = '/Users/mostafa/PycharmProjects/Luna/prepare/tmp'
+OUTPUT_PATH = 'H:/Luna16_Data/prepare'
 
 # Resource path which contains: annotations.csv, candidates.csv,
 # and subdirectories containing .mhd files.
 # This is the directory structure needed to run the code:
 # (The code will use all .mhd and .raw files inside subdirectories which their name is in annotations or candidates)
 '''
-[RESOURCES_PATH]/
+C:/Users/lized/PycharmProjects/medical_image/CPM/data_raw/
             annotations.csv
             candidates.csv
             subset0/
@@ -15,11 +15,8 @@ OUTPUT_PATH = '/Users/mostafa/PycharmProjects/Luna/prepare/tmp'
             subset1/
                         *.mhd
                         *.raw
-            my_custom_subset/
-                        *.mhd
-                        *.raw
 '''
-RESOURCES_PATH = '/Users/mostafa/Desktop/dsb_analyse/input'
+RESOURCES_PATH = 'H:/Luna16_Data/Extracted/luna'
 
 
 

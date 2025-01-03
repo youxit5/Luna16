@@ -35,7 +35,9 @@ def save_augmented_data(preprocess_meta):
         # 33 percent of the data will be negative samples
         if len(list_of_negatives) > len(list_of_positives) / 2:
             break
-    augmentation_meta = augmentation_meta.append(list_of_positives + list_of_negatives)
+    # augmentation_meta = augmentation_meta.append(list_of_positives + list_of_negatives)
+    augmentation_meta = pd.concat([augmentation_meta, pd.DataFrame(list_of_positives), pd.DataFrame(list_of_negatives)],
+                                  ignore_index=True)
     augmentation_meta.to_csv(f'{OUTPUT_PATH}/augmented_meta.csv')
 
 

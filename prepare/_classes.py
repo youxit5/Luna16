@@ -40,8 +40,8 @@ class CTScan(object):
         assert (min_z, min_y, min_x, max_z, max_y, max_x) != (None, None, None, None, None, None)
         min_point = (min_z, min_y, min_x)
         max_point = (max_z, max_y, max_x)
-        return {'seriesuid': self._seriesuid, 'radii': self._radii, 'centers': self._centers,
-                'spacing': list(self._spacing), 'lungs_bounding_box': [min_point, max_point], 'class': self._clazz}
+        return {'seriesuid': self._seriesuid, 'radii': np.array(self._radii).tolist(), 'centers': np.array(self._centers).tolist(),
+                'spacing': self._spacing.tolist(), 'lungs_bounding_box': [min_point, max_point], 'class': self._clazz}
 
     def _resample(self):
         spacing = np.array(self._spacing, dtype=np.float32)
